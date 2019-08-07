@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>User Information</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'userdash/css/userdash.css' %}">
+</head>
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <hr>
+            <h5>Technical Sample</h5>
+            <h6><a href="/dashboard">Dashboard</a></h6>
+            <h6><a href="/users/show/{{user.id}}">Profile</a></h6>
+            {% if user.id == request.session.id %}
+            <h6><a href="/users/edit">Edit Profile</a></h6>
+            {% endif %}
+            <h6><a href="/logout">Log off</a></h6>
+            <hr>
+        </div>
+        <div id="user_info">
+            <h1>{{user.first_name}} {{user.last_name}}</h1>
+            <table>
+                <tr>
+                    <td>Registered at:</td>
+                    <td>{{user.created_at}}</td>
+                </tr>
+                <tr>
+                    <td>User ID:</td>
+                    <td>#{{user.id}}</td>   
+                </tr>
+                <tr>
+                    <td>Email Address:</td>
+                    <td>{{user.email}}</td>   
+                </tr>
+                <tr>
+                    <td>Description:</td>
+                    <td>"{{user.description}}"</td>   
+                </tr>
+            </table>
+            <hr>
+            <div id="new_messages">
+                <h2>Leave a message for {{user.first_name}}</h2>
+                <form action="/add_message/{{user.id}}", method="POST">
+                    {% csrf_token %}
+                    <textarea name="content" id="textarea" cols="160" rows="7"></textarea>
+                    <input type="submit" value="Post" id="register_button">
+                </form>
+            </div>
+            <div id="messageboard">
+                {% for message in user_messages %}
+                    <div class="messages">
+                        <p>{{message.user.first_name}} wrote</p>
+                        <p>{{message.created_at}}</p>
+                        <h6>{{message.content}}</h6>
+                    </div>
+                <!-- another for loop for comments -->
+                    {% for comment in message.comments.all %}
+                    <div class="comments">
+                        <p>{{comment.user.first_name}} wrote</p>
+                        <p>{{comment.created_at}}</p>
+                        <h6>{{comment.content}}</h6>
+                    {% endfor %}
+                    </div>
+                <form action="/add_comment/{{user.id}}/{{message.id}}" method="POST">
+                    {% csrf_token %}
+                    <textarea name="content" id="textarea" cols="100" rows="7"></textarea>
+                    <input type="submit" value="Post" id="register_button">
+                </form>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

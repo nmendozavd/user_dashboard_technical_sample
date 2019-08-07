@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login & Reg</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'userdash/css/userdash.css' %}">
+</head>
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <hr>
+            <h5>Technical Sample</h5>
+            <h6><a href="/dashboard">Home</a></h6>
+            <h6><a href="/signin">Sign in</a></h6>
+            <hr>
+        </div>
+        <div id="main">
+            <h1>Hello! Welcome to my Technical Sample!</h1>
+            <p>Below is an application using an MVC framework where you can manange users, leave messages, and edit user information! </p>
+            <a href="/register"><button id="start_button">Start</button></a>
+        </div>
+        <div id="footer">
+            <div class="stack">
+                <h6>Manage Users</h6>
+                <p>Using this application, you'll learn how to add, remove, and edit users.</p>
+            </div>
+            <div class="stack">
+                <h6>Leave Messages</h6>
+                <p>You can also add, remove, and edit messages.</p>
+            </div>
+            <div class="stack">
+                <h6>Edit User Information</h6>
+                <p>And of course, you can edit user information for the application.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

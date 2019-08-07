@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login & Reg</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'userdash/css/userdash.css' %}">
+</head>
+<body>
+    <div id="wrapper">
+        <div id="reg_section">
+            <h1>Add a new user</h1>
+            <a href="/dashboard"><button>Return to Dashboard</button></a>
+            {% if messages %}
+            <div class="error_box">
+                {% for message in messages %}
+                    {% if message.tags == 'error' %}
+                <p class="{{message.tags}}">{{message}}</p>
+                    {% endif %}
+                    {% if message.tags == 'success' %}
+                <p class="{{message.tags}}">{{message}}</p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            {% endif %}
+            <form action="/addfromadmin" method="POST">
+                {% csrf_token %}
+                <div class="leftside_form">
+                    <p>First Name:</p>
+                    <p>Last Name:</p>
+                    <p>Email:</p>
+                    <p>Username:</p>
+                    <p>Date of Birth:</p>
+                    <p>Password:</p>
+                    <p>Confirm Password:</p>
+                </div>
+                <div class="rightside_form">
+                    <input type="text" class="input_field" name="first_name">
+                    <input type="text" class="input_field" name="last_name">
+                    <input type="text" class="input_field" name="email">
+                    <input type="text" class="input_field" name="username">
+                    <input type="date" class="input_field" name="dob">
+                    <input type="password" class="input_field" name="password">
+                    <input type="password" class="input_field" name="confirm_password"><br>
+                    <input type="submit" id="register_button" value="Register">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
